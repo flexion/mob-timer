@@ -1,8 +1,11 @@
 <script lang="ts">
+import Nav from '../components/Nav.svelte';
+
 	import '../app.css';
 </script>
 
 <main>
+	<Nav />
 	<slot />
 </main>
 

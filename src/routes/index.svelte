@@ -3,6 +3,7 @@
 </script>
 
 <script lang="ts">
+	import { totalTime } from "../stores/timer";
 
 	enum TIMER_STATE {
 		NEW,
@@ -10,11 +11,18 @@
 		PAUSED
 	}
 
-	let totalTime: number = 5;
 	let timeRemaining: number = 0;
 	let timer: NodeJS.Timer = null;
 	let timerState: TIMER_STATE = TIMER_STATE.NEW;
 
+
+	function formatSecondsIntoMinutesAndSeconds(totalSeconds: number): string {
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
+		return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+	}
+
+	$: formattedDate = formatSecondsIntoMinutesAndSeconds(timeRemaining);
 
 	function createTimer() {
 		timer = setInterval(() => {
@@ -29,7 +37,7 @@
 
 	function start() {
 		timerState = TIMER_STATE.RUNNING;
-		timeRemaining = totalTime * 60;
+		timeRemaining = $totalTime * 60;
 		createTimer();
 	}
 
@@ -54,10 +62,8 @@
 	</h1>
 
 	<h2>
-		{timeRemaining}
+		{formattedDate}
 	</h2>
-
-	<input type="number" min="1" bind:value={totalTime} />
 
 	{#if timerState === TIMER_STATE.NEW}
 		<button on:click={start}>start</button>

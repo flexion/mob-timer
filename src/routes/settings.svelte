@@ -3,9 +3,7 @@
 </script>
 
 <script lang="ts">
-	let totalTime: number = 5;
-
-	
+	import { totalTime } from "../stores/timer";
 </script>
 
 <svelte:head>
@@ -13,7 +11,8 @@
 </svelte:head>
 
 <section>
-	<input type="number" min="1" bind:value={totalTime} />
+	<label>Timer Duration (In Minutes)</label>
+	<input type="number" min="1" bind:value={$totalTime} />
 </section>
 
 <style>
