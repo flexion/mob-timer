@@ -10,10 +10,11 @@
 		PAUSED
 	}
 
-	const TOTAL_TIME: number = 5;
+	let totalTime: number = 5;
 	let timeRemaining: number = 0;
 	let timer: NodeJS.Timer = null;
 	let timerState: TIMER_STATE = TIMER_STATE.NEW;
+
 
 	function createTimer() {
 		timer = setInterval(() => {
@@ -28,7 +29,7 @@
 
 	function start() {
 		timerState = TIMER_STATE.RUNNING;
-		timeRemaining = TOTAL_TIME;
+		timeRemaining = totalTime * 60;
 		createTimer();
 	}
 
@@ -55,6 +56,8 @@
 	<h2>
 		{timeRemaining}
 	</h2>
+
+	<input type="number" min="1" bind:value={totalTime} />
 
 	{#if timerState === TIMER_STATE.NEW}
 		<button on:click={start}>start</button>
