@@ -3,6 +3,7 @@
 
 <header>
   <a href="/">Home</a>
+  <a href="/goals">Goals</a>
   <a href="/settings">Settings</a>
 </header>
 
